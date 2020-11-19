@@ -1,0 +1,25 @@
+---
+title: "Final Project"
+author: "Evgeniya Mitrokhina"
+
+output: pdf_document
+---
+
+# Research Question
+
+
+In the paper I would like to understand what effect media consumption has on government approval. Specifically, I am interested in whether frequently watching state owned media would differently influence approval to various political actors and institutions. 
+
+# Data
+
+For this purpose I plan to use a survey conducted by VCIOM (a Russian polling agency)
+
+# Variables
+
+
+
+# Measurment
+
+
+
+# Methods
