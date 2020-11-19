@@ -12,14 +12,23 @@ In the paper I would like to understand what effect media consumption has on gov
 
 # Data
 
-For this purpose I plan to use a survey conducted by VCIOM (a Russian polling agency)
+For this purpose I plan to use a survey conducted by [VCIOM](https://bd.wciom.ru/baza_dannykh_roper_center/) (a Russian polling agency). This is a representative on the country level survey conducted in $80$ Russian regions conducted every day ($48000$ respondents each month). The dataset starts in July $2019$ and ends in October $2019$.
+
+
 
 # Variables
 
+The **dependent variable** for this study will be approval of different political actors, including the President, the Prime Minister, Russian State Duma (legislature), Governor (head of the region, republic), Head of the Municipal Administration (Mayor of the city or village).
+
+The **independent variable** is the frequency of watching TV. 
+
+I also would control for regions and time, as well as include socio economic variables (gender, education, income).
 
 
 # Measurment
-
+The approval questions are binary measures, where 1 - "Approve", 2 - "Disapprove", 99 - "No answer". FOr TV consumption, 1 - "I watch more than 4 hours daily", 2 - "I watch every day, less than 4 hours a day", 3 - "I watch several times a week", 4 - "I watch it several times a month", 5 - "I watch TV not regularly, but at least once every six months", "6 - "I do not watch TV". 
 
 
 # Methods
+
+I plan to estimate a set of logistic regressions for various political actors and then compare whether there are significant differences among different political actors. Logit regression is appropriate when the outcome varianle is binary, which is the case with approval questions. 
