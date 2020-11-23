@@ -8,7 +8,7 @@ library(ggplot2)
 dataset <- read.csv("final_project_data.csv")
 
 
-######TV frequency
+######TV frequency (recoding)
 table(dataset$tv)
 dataset$tv_rec <- 99
 dataset$tv_rec[dataset$tv == 6] <- 1 #don't watch (Не смотрю)
@@ -20,9 +20,26 @@ dataset$tv_rec[dataset$tv == 1] <- 6 #more than 4hrs per day (Смотрю бо�
 
 table(dataset$tv_rec)
 
-#detach(package:plyr)
+#### Internet frequency (recoding)
+table(dataset$internet)
+datdaset$internet_rec <- 99
+dataset$internet_rec[dataset$internet == 96] <- 1 #don't use (Не пользуюсь)
+dataset$internet_rec[dataset$internet == 5] <- 2 #episodically, no less than once per half a year (Смотрю эпизодически, но не менее 1 раза в полгода)
+dataset$internet_rec[dataset$internet == 4] <- 3 #several times per month (Смотрю несколько раз в месяц)
+dataset$internet_rec[dataset$internet == 3] <- 4 #several times per week (Смотрю несколько раз в неделю)
+dataset$internet_rec[dataset$internet == 2] <- 5 #every day less than 4hrs per day (Смотрю ежедневно, менее 4 часов в день)
+dataset$internet_rec[dataset$internet == 1] <- 6 #more than 4hrs per day (Смотрю более 4 часов ежедневно)
+
+table(dataset$internet_rec)
+
+
+
+
+
 
 #GRAPHICS
+#detach(package:plyr) - is not compatible with dplyr
+
 #President
 dataset %>% 
   group_by(as.factor(wave)) %>%
