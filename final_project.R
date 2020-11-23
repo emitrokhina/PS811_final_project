@@ -34,45 +34,11 @@ table(dataset$internet_rec)
 
 
 
-
-
-
-#GRAPHICS
-#detach(package:plyr) - is not compatible with dplyr
-
-#President
-dataset %>% 
-  group_by(as.factor(wave)) %>%
-  mutate(mean_pres = mean(as.integer(president_approval))) %>%
-  ggplot(aes(x = wave, y = mean_pres))+
-  geom_line() #add abb line - mean
-
-cdplot(as.factor(president_approval) ~ wave, data = dataset)
-
-ggplot(dataset, 
-       aes(x = region, 
-           fill = as.factor(president_approval))) + 
-  geom_bar(position = "dodge")
-
-
-#Governor
-dataset %>% 
-  group_by(as.factor(wave)) %>%
-  mutate(mean_pres = mean(as.integer(governor_approval))) %>%
-  ggplot(aes(x = wave, y = mean_pres))+
-  geom_line() #add abb line - mean
-
-cdplot(as.factor(governor_approval) ~ wave, data = dataset)
-
-
-ggplot(dataset, 
-       aes(x = region, 
-           fill = as.factor(governor_approval))) + 
-  geom_bar(position = "dodge")
-
-
 #Logit regression
-model1<- glm(president_approval ~ as.factor(tv) + age + as.factor(education) + as.factor(internet) +
+
+#President 
+
+model1<- glm(president_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
                income + protest +
                as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
 summary(model1)
@@ -83,9 +49,9 @@ stargazer(model1, model2, type = 'text',
           header = FALSE, out = "file.txt"
 )
 
+#Governor
 
-
-model2<- glm(governor_approval ~ as.factor(tv) + age + as.factor(education) + as.factor(internet) +
+model2<- glm(governor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
                income + protest +
                as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
 summary(model2)
