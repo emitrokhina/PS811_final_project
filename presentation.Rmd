@@ -21,15 +21,22 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Data
 
-Survey conducted by [VCIOM](https://bd.wciom.ru/baza_dannykh_roper_center/) (a Russian polling agency)
+Survey conducted by [VCIOM](https://bd.wciom.ru/baza_dannykh_roper_center/) (a Russian polling agency) from July $2018$ to October $2019$
 
 Representative on the country level conducted in $80$ Russian regions every day ($\approx 48000$ respondents each month)
 
-from July $2018$ to October $2019$
+
+**Dependent variable**: approval of different political actors (the President, the Prime Minister, Russian State Duma (legislature), Governor (head of the region, republic), Head of the Municipal Administration (Mayor of the city or village)
+
+**Independent variable** frequency of watching TV
+
+**Controls**: Socio-economic variables (gender, education, income) 
 
 ## Descriptive statistics
 
 ## Method
+
+
 
 ## Results
 

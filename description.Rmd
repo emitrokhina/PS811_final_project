@@ -22,7 +22,7 @@ The **dependent variable** for this study will be approval of different politica
 
 The **independent variable** is the frequency of watching TV. 
 
-I also would control for regions and time, as well as include socio economic variables (gender, education, income).
+I also would control for regions and time, as well as include socio-economic variables (gender, education, income).
 
 
 # Measurment
