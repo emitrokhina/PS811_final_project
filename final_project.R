@@ -11,6 +11,7 @@ library("here")
 library("stargazer")
 library("modelsummary")
 library("sjlabelled")
+library("estimatr")
 
 dataset <- read.csv("final_project_data.csv")
 
@@ -112,20 +113,19 @@ dataset %>%
   geom_line(aes(y =  mean_pres), color = "steelblue") +
   theme_minimal() +
   labs(title = "Average approval of the Mayor (monthly)", x = "months", y = "Share of supporters")
+
+
+#Data analysis
+
 #Logit regression
 
-#President 
 
+#President 
 model1<- glm(president_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
                income + protest +
                as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
 summary(model1)
 
-stargazer(model1, model2, type = 'text',
-          title = "Political actors approval assosiated with watching Tv frequency",
-          dep.var.labels = c("President approval", "Governor approval"),
-          header = FALSE, out = "file.txt"
-)
 
 #Governor
 
@@ -133,3 +133,33 @@ model2<- glm(governor_approval ~ as.factor(tv_rec) + age + as.factor(education) 
                income + protest +
                as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
 summary(model2)
+
+
+#Government
+
+model3<- glm(government_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+               income + protest +
+               as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
+summary(model3)
+
+#Mayor
+model4<- glm(mayor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+               income + protest +
+               as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
+summary(model4)
+
+
+
+stargazer(model1, model2, model3, model4, type = 'text',
+          title = "Political actors approval assosiated with watching Tv frequency",
+          dep.var.labels = c("President approval", "Governor approval", "Government approval", "Mayor approval"),
+          covariate.labels = c("Watch TV very rarely", "Watch TV several times per month",
+                               "Watch TV several times per week", "Watch TV every day less than 4hrs",
+                               "Watch TV every day more than 4hrs", "Age", "Use the Internet very rarely",
+                               "Use the Internet several times per month", "Use the Internet several times per week",
+                               "Use the Internet every day less than 4hrs", "Use the Internet every day more than 4hrs",
+                               "Income", "Protest"),
+          omit = c("region", "wave", "education"),
+          header = FALSE, out = "file.txt")
+
+

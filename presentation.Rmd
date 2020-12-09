@@ -38,6 +38,7 @@ Representative on the country level conducted in $80$ Russian regions every day 
 library("modelsummary")
 library("dplyr")
 library("ggplot2")
+library("stargazer")
 
 approval <- read.csv("presentation_data.csv")
 ```
@@ -100,7 +101,7 @@ approval %>%
   group_by(as.factor(wave)) %>%
   mutate(mean_pres = mean(na.omit(as.integer(mayor_approval)))) %>%
   ggplot(aes(x = wave)) +
-  geom_line(aes(y =  mean_pres), color = "steelblue") +
+  geom_line(aes(y =  mean_pres), color = "darkred") +
   theme_minimal() +
   labs(title = "Average approval of the Mayor", x = "months", y = "Share of supporters")
 ```
@@ -111,6 +112,93 @@ approval %>%
 
 
 ## Results
+```{r, echo=FALSE, results = FALSE}
+#Government approval
+table(approval$government_approval)
+
+approval$government_approval[approval$government_approval == 1] <- 0
+approval$government_approval[approval$government_approval == 2] <- 1
+approval$government_approval[approval$government_approval == 99] <- NA
+
+table(approval$government_approval)
+
+
+
+#Government approval
+table(approval$mayor_approval)
+
+approval$mayor_approval[approval$mayor_approval == 1] <- 0
+approval$mayor_approval[approval$mayor_approval == 2] <- 1
+approval$mayor_approval[approval$mayor_approval == 99] <- NA
+
+table(approval$mayor_approval)
+
+######TV frequency (recoding)
+table(approval$tv)
+approval$tv_rec <- 99
+approval$tv_rec[approval$tv == 6] <- 1 #don't watch (Не смотрю)
+approval$tv_rec[approval$tv == 5] <- 2 #episodically, no less than once per half a year (Смотрю эпизодически, но не менее 1 раза в полгода)
+approval$tv_rec[approval$tv == 4] <- 3 #several times per month (Смотрю несколько раз в месяц)
+approval$tv_rec[approval$tv == 3] <- 4 #several times per week (Смотрю несколько раз в неделю)
+approval$tv_rec[approval$tv == 2] <- 5 #every day less than 4hrs per day (Смотрю ежедневно, менее 4 часов в день)
+approval$tv_rec[approval$tv == 1] <- 6 #more than 4hrs per day (Смотрю более 4 часов ежедневно)
+
+table(approval$tv_rec)
+
+#### Internet frequency (recoding)
+table(approval$internet)
+approval$internet_rec <- 99
+approval$internet_rec[approval$internet == 96] <- 1 #don't use (Не пользуюсь)
+approval$internet_rec[approval$internet == 5] <- 2 #episodically, no less than once per half a year (Смотрю эпизодически, но не менее 1 раза в полгода)
+approval$internet_rec[approval$internet == 4] <- 3 #several times per month (Смотрю несколько раз в месяц)
+approval$internet_rec[approval$internet == 3] <- 4 #several times per week (Смотрю несколько раз в неделю)
+approval$internet_rec[approval$internet == 2] <- 5 #every day less than 4hrs per day (Смотрю ежедневно, менее 4 часов в день)
+approval$internet_rec[approval$internet == 1] <- 6 #more than 4hrs per day (Смотрю более 4 часов ежедневно)
+
+
+#President 
+model1<- glm(president_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+               income + protest +
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial")
+summary(model1)
+
+
+#Governor
+
+model2<- glm(governor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+               income + protest +
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial")
+summary(model2)
+
+
+#Government
+
+model3<- glm(government_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+               income + protest +
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial")
+summary(model3)
+
+#Mayor
+model4<- glm(mayor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+               income + protest +
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial")
+summary(model4)
+
+```
+
+
+
+```{r, results='asis'}
+stargazer(model1, model2, model3, model4, type = 'latex',
+          title = "Political actors approval assosiated with watching Tv frequency",
+          dep.var.labels = c("President approval", "Governor approval", "Government approval", "Mayor approval"),
+          covariate.labels = c("TV very rarely", "Several times per month",
+                               "Several times per week", "Every day less than 4hrs",
+                               "Every day more than 4hrs", "Age", "Income", "Protest"),
+          omit = c("region", "wave", "education", "internet_rec"),
+          header = FALSE, out = "file.txt")
+```
+
 
 ## Conclusion
 

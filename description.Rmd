@@ -31,4 +31,4 @@ The approval questions are binary measures, where 1 - "Approve", 2 - "Disapprove
 
 # Methods
 
-I plan to estimate a set of logistic regressions for various political actors and then compare whether there are significant differences among different political actors. Logit regression is appropriate when the outcome varianle is binary, which is the case with approval questions. 
+I plan to estimate a set of logistic regressions for various political actors and then compare whether there are significant differences among different political actors. Logit regression is appropriate when the outcome varianble is binary, which is the case with approval questions. 
