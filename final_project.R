@@ -4,9 +4,43 @@
 
 library(dplyr)
 library(ggplot2)
+library("magrittr")
+library("tidyverse")
+library("haven")
+library("here")
+library("stargazer")
+library("modelsummary")
+library("sjlabelled")
 
 dataset <- read.csv("final_project_data.csv")
 
+#Recoding variables
+
+#President approval
+table(dataset$president_approval)
+
+#Governor approval
+table(dataset$governor_approval)
+
+#Government approval
+table(dataset$government_approval)
+
+dataset$government_approval[dataset$government_approval == 1] <- 0
+dataset$government_approval[dataset$government_approval == 2] <- 1
+dataset$government_approval[dataset$government_approval == 99] <- NA
+
+table(dataset$government_approval)
+
+
+
+#Government approval
+table(dataset$mayor_approval)
+
+dataset$mayor_approval[dataset$mayor_approval == 1] <- 0
+dataset$mayor_approval[dataset$mayor_approval == 2] <- 1
+dataset$mayor_approval[dataset$mayor_approval == 99] <- NA
+
+table(dataset$mayor_approval)
 
 ######TV frequency (recoding)
 table(dataset$tv)
@@ -30,10 +64,54 @@ dataset$internet_rec[dataset$internet == 3] <- 4 #several times per week (Смо
 dataset$internet_rec[dataset$internet == 2] <- 5 #every day less than 4hrs per day (Смотрю ежедневно, менее 4 часов в день)
 dataset$internet_rec[dataset$internet == 1] <- 6 #more than 4hrs per day (Смотрю более 4 часов ежедневно)
 
-table(dataset$internet_rec)
+
+write.csv(dataset,"presentation_data.csv", row.names = FALSE)
+
+#Summary statistics
 
 
+datasummary(('President approval' = president_approval) +
+              ('Governor approval' = governor_approval) +
+              ('Government approval' = government_approval) +
+              ('Mayor approval' = mayor_approval) +
+              ('TV watching frequncy' = tv_rec) +
+              ('Internet frequncy' = internet_rec) ~
+              Mean + SD + Min + Max,
+            data = dataset,
+            output = 'markdown')
 
+#Plots
+dataset %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(as.integer(president_approval))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "darkred") +
+  theme_minimal() +
+  labs(title = "Average approval of the President (monthly)", x = "months", y = "Share of supporters")
+
+dataset %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(na.omit(as.integer(governor_approval)))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "steelblue") +
+  theme_minimal() +
+  labs(title = "Average approval of the Governor (monthly)", x = "months", y = "Share of supporters")
+
+dataset %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(na.omit(as.integer(government_approval)))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "steelblue") +
+  theme_minimal() +
+  labs(title = "Average approval of the Government (monthly)", x = "months", y = "Share of supporters")
+
+dataset %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(na.omit(as.integer(mayor_approval)))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "steelblue") +
+  theme_minimal() +
+  labs(title = "Average approval of the Mayor (monthly)", x = "months", y = "Share of supporters")
 #Logit regression
 
 #President 

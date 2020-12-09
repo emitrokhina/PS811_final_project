@@ -1,7 +1,7 @@
 ---
 title: "Project"
 author: "Evgeniya Mitrokhina"
-date: "08 12 2020"
+date: "`r Sys.Date()`"
 output: 
   beamer_presentation:
     includes:
@@ -9,7 +9,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+
 ```
 
 ## Background and research question
@@ -33,6 +34,77 @@ Representative on the country level conducted in $80$ Russian regions every day 
 **Controls**: Socio-economic variables (gender, education, income) 
 
 ## Descriptive statistics
+```{r, echo=FALSE, warning = FALSE}
+library("modelsummary")
+library("dplyr")
+library("ggplot2")
+
+approval <- read.csv("presentation_data.csv")
+```
+
+
+```{r}
+datasummary(("President approval" = president_approval) +
+              ('Governor approval' = governor_approval) +
+              ('Government approval' = government_approval) +
+              ('Mayor approval' = mayor_approval) +
+              ('TV watching frequncy' = tv_rec) +
+              ('Internet frequncy' = internet_rec) ~
+              Mean + SD + Min + Max,
+            data = approval,
+            output = 'markdown',
+            title = "Summary statistics")
+```
+
+
+## Descriptive statistics
+
+```{r, warning = FALSE}
+
+approval %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(as.integer(president_approval))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "darkred") +
+  theme_minimal() +
+  labs(title = "Average approval of the President", x = "months", y = "Share of supporters")
+
+
+```
+
+## Descriptive statistics
+```{r, warning = FALSE}
+approval %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(na.omit(as.integer(governor_approval)))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "steelblue") +
+  theme_minimal() +
+  labs(title = "Average approval of the Governor", x = "months", y = "Share of supporters")
+```
+
+## Descriptive statistics
+```{r, warning = FALSE}
+approval %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(na.omit(as.integer(government_approval)))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "steelblue") +
+  theme_minimal() +
+  labs(title = "Average approval of the Government", x = "months", y = "Share of supporters")
+```
+
+## Descriptive statistics
+```{r, warning = FALSE}
+approval %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(na.omit(as.integer(mayor_approval)))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "steelblue") +
+  theme_minimal() +
+  labs(title = "Average approval of the Mayor", x = "months", y = "Share of supporters")
+```
+
 
 ## Method
 
