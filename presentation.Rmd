@@ -2,22 +2,39 @@
 title: "Project"
 author: "Evgeniya Mitrokhina"
 date: "08 12 2020"
-output: beamer_presentation
+output: 
+  beamer_presentation:
+    includes:
+      in_header: preamble.tex 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Background
+## Background and research question
 
 ![](putin.jpg)
 
-""
 
-## Research question
+## Hypothesis
 
-What effect media consumption has on government approval? 
+## Data
+
+Survey conducted by [VCIOM](https://bd.wciom.ru/baza_dannykh_roper_center/) (a Russian polling agency)
+
+Representative on the country level conducted in $80$ Russian regions every day ($\approx 48000$ respondents each month)
+
+from July $2018$ to October $2019$
+
+## Descriptive statistics
+
+## Method
+
+## Results
+
+## Conclusion
+
 
 
 ## R Markdown
