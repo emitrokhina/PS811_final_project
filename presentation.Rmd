@@ -1,5 +1,5 @@
 ---
-title: "Project"
+title: "TV Consumption and Government Approval in Russia "
 author: "Evgeniya Mitrokhina"
 date: "`r Sys.Date()`"
 output: 
@@ -19,6 +19,12 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 
 
 ## Hypothesis
+
+1. Frequency of watching TV has different effect on the approval of  political actors (the level of power)
+
+2. People who watch state-owned TV channels are more likely to approve the President's policy
+
+3. People who watch TV frequently are more likely to disapprove the Government's policy
 
 ## Data
 
@@ -108,6 +114,11 @@ approval %>%
 
 
 ## Method
+Logistic regressions for various political actors:
+
+- appropriate for binary outcomes
+- input variables have any measurement level
+- predicted values are the probability of a particular level(s) of target variable at the given values of input variables
 
 
 
@@ -157,74 +168,67 @@ approval$internet_rec[approval$internet == 1] <- 6 #more than 4hrs per day (См
 
 
 #President 
-model1<- glm(president_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+suppressWarnings(model1<- glm(president_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
                income + protest +
-               as.factor(region) + as.factor(wave), data = approval, family = "binomial")
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial"))
 summary(model1)
 
 
 #Governor
 
-model2<- glm(governor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+suppressWarnings(model2<- glm(governor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
                income + protest +
-               as.factor(region) + as.factor(wave), data = approval, family = "binomial")
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial"))
 summary(model2)
 
 
 #Government
 
-model3<- glm(government_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+suppressWarnings(model3<- glm(government_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
                income + protest +
-               as.factor(region) + as.factor(wave), data = approval, family = "binomial")
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial"))
 summary(model3)
 
 #Mayor
-model4<- glm(mayor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+suppressWarnings(model4<- glm(mayor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
                income + protest +
-               as.factor(region) + as.factor(wave), data = approval, family = "binomial")
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial"))
 summary(model4)
 
 ```
 
 
 
-```{r, results='asis'}
-stargazer(model1, model2, model3, model4, type = 'latex',
-          title = "Political actors approval assosiated with watching Tv frequency",
-          dep.var.labels = c("President approval", "Governor approval", "Government approval", "Mayor approval"),
+```{r results='asis', warning = FALSE}
+stargazer(model1, model2, model3, model4,
+          title = "Political actors approval assosiated with watching TV frequency",
           covariate.labels = c("TV very rarely", "Several times per month",
                                "Several times per week", "Every day less than 4hrs",
                                "Every day more than 4hrs", "Age", "Income", "Protest"),
-          omit = c("region", "wave", "education", "internet_rec"),
-          header = FALSE, out = "file.txt")
+          dep.var.labels = c("President approval", "Governor approval", "Government approval", "Mayor approval"),
+          omit = c("region", "wave", "education", "internet_rec", "age", "income", "protest"),
+          type = "latex",
+          font.size = "tiny",
+          header = FALSE)
+```
+## Results
+
+```{r results='asis', warning = FALSE}
+stargazer(model1, model2, model3, model4,
+          title = "Political actors approval assosiated with using the Internet",
+          covariate.labels = c("Very rarely", "Several times per month", "Several times per week",
+                               "Every day less than 4hrs", "Every day more than 4hrs", "Age"),
+          dep.var.labels = c("President approval", "Governor approval", "Government approval", "Mayor approval"),
+          omit = c("region", "wave", "education", "tv_rec", "age", "income", "protest"),
+          type = "latex",
+          font.size = "tiny",
+          header = FALSE)
 ```
 
 
 ## Conclusion
 
-
-
-## R Markdown
-
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
-```
-
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
-```
-
+- People who watch TV more often tend to love Putin :(
+- The opposite is with the Internet usage :)
+- The same situation is with governors 
+- Models with DV for Mayor and the Government do not converge :(
