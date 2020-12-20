@@ -30,7 +30,7 @@ abstract: |
   During the last four years Russia is suffering from the economic crisis caused by the Crimea annexation and sanctions induced by foreign countries. At the same time, pro-government media provide such content that emphasizes mostly positive consequences of these events, whereas the economic well-being of Russian citizens has deteriorated. In the work I try to understand whether TV consumption affects government approval. To do so I analyse public opinion data collected from July 2018 to October 2019. I find the possitive correlation between the frequency of TV consumption and the approval of the President and governors. However, people who use the Internet tend to disapprve the government.
   
 keywords          : "media persuasion, public opinion, authoritarian regimes"
-wordcount         : "X"
+wordcount         : "1305"
 
 bibliography      : ["reference.bib"]
 
@@ -132,7 +132,15 @@ approval %>%
   ylim(0.30, 1)
 ```
 
-# Results
+# Results and discussion
+After conducting the analysis we can see that hypothesis stated in the introduction are confirmed. In the table 2 you can find the estimations for models evaluating the frequency of watching the TV and government approval. In the first column the model is estimated for the President. For those who watch the TV very rarely the coefficient is insignificant (the base category is not watching TV at all). However, the coefficient is getting significant and large in magnitude more frequently individuals watch the TV. The similar result we get for the model where the dependent variable is governor approval. At the same time we can see that the coefficient is smaller compared to the one for the President and getting significant only if individuals watch the TV for several times per week (for the Presedent several times per month is enough).
+
+We can see the opposite effect for those, who use the Internet. It is very interesting that for all categories of the Internet usage the association is negative. The association is the most strong for those who use the Internet every day. At the same time even those, who use it very rarely still express negative views. The results are a bit different for governors. The coefficient is insignificant for those who use the Internet rarely and several times per month. 
+
+Today Russian main channels are either directly or indirectly owned by the state. The primary source of information for people is still television  and three main channels (Russia 1, Channel 1 and NTV) are controlled by the Kremlin [@lankinaItNotAll2016]. Russian media industry is extensively controlled by the government [@lipmanMediaRussiaModernization2018]. The government puts lots of efforts in using the media to manipulate public opinion and managing mass support [@rogovPublicOpinionRussian2018]. Along with censorship Russian state actively uses elaborated propaganda.  Major TV channels exhibit strong pro-regime bias [@khaldarovaFakeNewsNarrative2016], censor negative information about the government and actively use framing to represent negative news in positive light [@lankinaRussianSpringSpring2017] combining them with entertainment content [@gehlbachReflectionsPutinMedia2010].
+
+For the better analysis and more reliable results the survey data should be enriched by the text data from these channels. It would also be good to conduct a survey experiment presenting to respondents actuall news messages about different political actors and then comparing the differences between treatment conditions.
+
 ```{r, echo=FALSE, results = FALSE}
 #Government approval
 table(approval$government_approval)
@@ -217,7 +225,7 @@ stargazer(model1, model2,
           font.size = "small",
           header = FALSE)
 ```
-# Discussion
+
 
 
 \newpage

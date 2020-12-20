@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.11.30)  21 DEC 2020 00:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.11.30)  21 DEC 2020 01:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -732,8 +732,8 @@ File: mt-eur.cfg 2006/07/31 v1.1 microtype config. file: AMS Euler Roman (RS)
 (Final_paper.fff)
 Underfull \vbox (badness 1694) has occurred while \output is active []
 
-[5] [6] [7] [8] AED endfloat: Processing end Figures and Tables [9] (./Final_pa
-per.ttt
+[5] [6] [7] [8] [9] AED endfloat: Processing end Figures and Tables [10] (./Fin
+al_paper.ttt
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 23.
 
@@ -742,11 +742,11 @@ LaTeX Warning: Float too large for page by 63.0853pt on input line 57.
 
 LaTeX Warning: Float too large for page by 63.0853pt on input line 98.
 
-) [10
+) [11
 
 
-] [11] [12] (./Final_paper.fff
-<Final_paper_files/figure-latex/figures-side-1.pdf, id=106, 469.755pt x 325.215
+] [12] [13] (./Final_paper.fff
+<Final_paper_files/figure-latex/figures-side-1.pdf, id=114, 469.755pt x 325.215
 pt>
 File: Final_paper_files/figure-latex/figures-side-1.pdf Graphic file (type pdf)
 
@@ -754,7 +754,7 @@ File: Final_paper_files/figure-latex/figures-side-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: Final_paper_files/figure-latex/figures-side-1.pdf  use
 d on input line 4.
 (pdftex.def)             Requested size: 234.87692pt x 162.6071pt.
-<Final_paper_files/figure-latex/figures-side-2.pdf, id=107, 469.755pt x 325.215
+<Final_paper_files/figure-latex/figures-side-2.pdf, id=115, 469.755pt x 325.215
 pt>
 File: Final_paper_files/figure-latex/figures-side-2.pdf Graphic file (type pdf)
 
@@ -767,7 +767,7 @@ Overfull \hbox (2.6099pt too wide) in paragraph at lines 4--4
 [][] [] 
  []
 
-) [13
+) [14
 
  <./Final_paper_files/figure-latex/figures-side-1.pdf> <./Final_paper_files/fig
 ure-latex/figures-side-2.pdf>] (./Final_paper.aux)
@@ -776,13 +776,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 17085 strings out of 479485
- 256470 string characters out of 5875915
- 619608 words of memory out of 5000000
- 33647 multiletter control sequences out of 15000+600000
- 596244 words of font info for 104 fonts, out of 8000000 for 9000
+ 17089 strings out of 479485
+ 256657 string characters out of 5875915
+ 619592 words of memory out of 5000000
+ 33645 multiletter control sequences out of 15000+600000
+ 596373 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 80i,11n,85p,2250b,489s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 80i,11n,85p,2250b,483s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/texlive/2020
 /texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2020/texmf-dist/fonts/
 enc/dvips/lm/lm-ec.enc}{c:/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
@@ -794,10 +794,10 @@ ype1/public/lm/lmr10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr1
 s/type1/public/lm/lmri12.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/lm/
 lmss8.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texl
 ive/2020/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
-Output written on Final_paper.pdf (13 pages, 196541 bytes).
+Output written on Final_paper.pdf (14 pages, 200679 bytes).
 PDF statistics:
- 193 PDF objects out of 1000 (max. 8388607)
- 162 compressed objects within 2 object streams
- 55 named destinations out of 1000 (max. 500000)
- 12339 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 197 PDF objects out of 1000 (max. 8388607)
+ 165 compressed objects within 2 object streams
+ 59 named destinations out of 1000 (max. 500000)
+ 12331 words of extra memory for PDF output out of 14400 (max. 10000000)
 
