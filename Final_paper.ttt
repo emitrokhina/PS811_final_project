@@ -1,0 +1,98 @@
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{\label{tab:unnamed-chunk-2}Summary statistics}\tabularnewline
+\toprule
+& Mean & SD & Min & Max\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+& Mean & SD & Min & Max\tabularnewline
+\midrule
+\endhead
+\enquote{President approval} & 0.70 & 0.46 & 0.00 & 1.00\tabularnewline
+\enquote{Governor approval} & 0.70 & 0.46 & 0.00 & 1.00\tabularnewline
+\enquote{TV watching frequncy} & 4.46 & 1.48 & 1.00 & 6.00\tabularnewline
+\enquote{Internet frequncy} & 4.28 & 1.78 & 1.00 & 6.00\tabularnewline
+\bottomrule
+\end{longtable}
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[!htbp] \centering
+  \caption{Political actors approval assosiated with watching TV frequency}
+  \label{}
+\small
+\begin{tabular}{@{\extracolsep{5pt}}lcc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & \multicolumn{2}{c}{\textit{Dependent variable:}} \\
+\cline{2-3}
+\\[-1.8ex] & President approval & Governor approval \\
+\\[-1.8ex] & (1) & (2)\\
+\hline \\[-1.8ex]
+ TV very rarely & 0.029 & $-$0.032 \\
+  & (0.212) & (0.215) \\
+  & & \\
+ Several times per month & 0.446$^{**}$ & 0.111 \\
+  & (0.185) & (0.188) \\
+  & & \\
+ Several times per week & 0.636$^{***}$ & 0.304$^{**}$ \\
+  & (0.146) & (0.149) \\
+  & & \\
+ Every day less than 4hrs & 0.886$^{***}$ & 0.395$^{***}$ \\
+  & (0.143) & (0.143) \\
+  & & \\
+ Every day more than 4hrs & 1.092$^{***}$ & 0.537$^{***}$ \\
+  & (0.178) & (0.172) \\
+  & & \\
+ Age & 0.504 & 17.524 \\
+  & (1.369) & (956.867) \\
+  & & \\
+\hline \\[-1.8ex]
+Observations & 2,816 & 2,816 \\
+Log Likelihood & $-$1,471.766 & $-$1,523.380 \\
+Akaike Inf. Crit. & 3,177.532 & 3,280.759 \\
+\hline
+\hline \\[-1.8ex]
+\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\
+\end{tabular}
+\end{table*}
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[!htbp] \centering
+  \caption{Political actors approval assosiated with using the Internet}
+  \label{}
+\small
+\begin{tabular}{@{\extracolsep{5pt}}lcc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & \multicolumn{2}{c}{\textit{Dependent variable:}} \\
+\cline{2-3}
+\\[-1.8ex] & President approval & Governor approval \\
+\\[-1.8ex] & (1) & (2)\\
+\hline \\[-1.8ex]
+ Very rarely & $-$0.930$^{**}$ & 0.006 \\
+  & (0.407) & (0.417) \\
+  & & \\
+ Several times per month & $-$0.913$^{**}$ & $-$0.268 \\
+  & (0.414) & (0.401) \\
+  & & \\
+ Several times per week & $-$0.839$^{***}$ & $-$0.893$^{***}$ \\
+  & (0.258) & (0.222) \\
+  & & \\
+ Every day less than 4hrs & $-$1.331$^{***}$ & $-$0.931$^{***}$ \\
+  & (0.222) & (0.193) \\
+  & & \\
+ Every day more than 4hrs & $-$1.397$^{***}$ & $-$1.086$^{***}$ \\
+  & (0.235) & (0.208) \\
+  & & \\
+ Age & 0.504 & 17.524 \\
+  & (1.369) & (956.867) \\
+  & & \\
+\hline \\[-1.8ex]
+Observations & 2,816 & 2,816 \\
+Log Likelihood & $-$1,471.766 & $-$1,523.380 \\
+Akaike Inf. Crit. & 3,177.532 & 3,280.759 \\
+\hline
+\hline \\[-1.8ex]
+\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\
+\end{tabular}
+\end{table*}

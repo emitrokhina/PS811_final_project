@@ -1,0 +1,232 @@
+---
+title             : "TV Consumption and Government Approval in Russia"
+shorttitle        : "TV Consumption and Government Approval in Russia"
+
+author: 
+  - name          : "Evgeniya Mitrokhina"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+#    address       : "Postal address"
+    email         : "mitrokhina@wisc.edu"
+#    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+#      - Conceptualization
+#      - Writing - Original Draft Preparation
+#      - Writing - Review & Editing
+#  - name          : "Ernst-August Doelle"
+#    affiliation   : "1,2"
+#    role:
+#      - Writing - Review & Editing
+
+affiliation:
+  - id            : "1"
+    institution   : "UW-Madison"
+#  - id            : "2"
+#    institution   : "Konstanz Business School"
+
+authornote: |
+  PhD student at UW-Madison 
+
+abstract: |
+  During the last four years Russia is suffering from the economic crisis caused by the Crimea annexation and sanctions induced by foreign countries. At the same time, pro-government media provide such content that emphasizes mostly positive consequences of these events, whereas the economic well-being of Russian citizens has deteriorated. In the work I try to understand whether TV consumption affects government approval. To do so I analyse public opinion data collected from July 2018 to October 2019. I find the possitive correlation between the frequency of TV consumption and the approval of the President and governors. However, people who use the Internet tend to disapprve the government.
+  
+keywords          : "media persuasion, public opinion, authoritarian regimes"
+wordcount         : "X"
+
+bibliography      : ["reference.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+r_refs("reference.bib")
+```
+
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+#knitr::opts_chunk$set(echo = TRUE, fig.pos= "h")
+```
+
+# Introduction
+
+Many scholars highlight that modern autocrats differ from the classical understanding of dictatorship. The strategies autocrats use to hold on to the power are also changing. It relates to the developing technologies and its introduction to a daily life of people as well as tools, that governments use to control them. Modern authoritarian regimes more frequently use media to persuade citizens and legitimate their rule. With much less violence and fear, authorities in these countries seek to convince citizens in the governments’ competence. That is why in the work I would like to investigate the association between officials approval and frequency of watching the TV.
+
+Authoritarian regimes develop new techniques to prolong their existence. Scholars argue that modern autocrats pay more attention to information and its effect on public opinion [@gurievInformationalAutocracyTheory2018; @gurievTheoryInformationalAutocracy2020; @robertsCensoredDistractionDiversion2018; @sanovichTurningVirtualTables2018; @tuckerSocialMediaPolitical2018]. The use of and control over the media is an essential tool. The manipulation of the information by autocrats implies that public is less aware of the censorship than the elite, and as a result the informational autocrats should be more popular with the public than the elite. Autocrats today tend to mimic democratic rulers not only establishing institutions but using the same communication with citizens and emphasizing economic performance and public provisions.
+
+Autocrats cannot solely rely on repression, they need some additional tools to be able to accumulate more power, in these circumstances loyalty of citizens is instrumental to the survival of a dictatorships. To keep the power leaders must discourage their ruling coalition and outside rivals to subvert their rule. One of the ways to do it is to convince them in that is to create an image of invincibility [@magaloniCitizenLoyaltyMass2008].  Manufacturing this image allows dictators to signal opponents that attempts to rebel are pointless because the leader is indestructible. The image is assuring the public that the leader is popular and supported by many that cause less disobedience even if some citizens are aggrieved. Thus, the popularity of the regime and its strength becomes a common knowledge.
+
+Various studies examined how media affect political participation, news consumption and its effect on electoral outcomes in democracies [@gentzkowEffectNewspaperEntry2011; @petrovaNewspapersPartiesHow2011] as well as in not liberal regimes [@adenaRadioRiseNazis2015; @enikolopovMediaPoliticalPersuasion2011; @knightLimitsPropagandaEvidence2019; @larreguyIncentivesEffectsIndependent2019]. Studies of media control and propaganda in authoritarian regimes have implications for literature about the regime endurance [@chenInformationManipulationReform2015; @kingReverseengineeringCensorshipChina2014; @lankinaRussianSpringSpring2017]. Media censorship is effective as a mechanism to constrain expression of antigovernment sentiment.At the same time, however, it is costly to maintain and implement [@kingHowCensorshipChina2013]. Independent media in autocracies may lead to erosion of a regime’s legitimacy and even challenge the stability of authoritarian rule [@egorovWhyResourcepoorDictators2009; @enikolopovMediaPoliticalPersuasion2011; @levitskyElectionsDemocracyRise2002]. Therefore, autocrats have incentives to limit the activities of media outlets that do not support the government.
+
+Comparative studies present evidence that people in democratic countries on average have higher levels of trust in media [@tsfatiIndividualContextualCorrelates2014]. Thus, people in authoritarian regimes should be more skeptical about the media, especially about the state-affiliated outlets [@wedeenAmbiguitiesDominationPolitics2015]. Some citizens discount the information that receive from state-owned media outlets because of inconsistencies with their own experience and other information sources [@mickiewiczTelevisionPowerPublic2008]. However, according to Levada surveys, Russians find television trustworthy although it is controlled by the government. That is why it is possible to assume that the bias translated through the media is not necessarily an obstacle for its consumers, and as a result it affects their views. At the same time, those who do not trust television more willingly consume the Internet.
+
+In the work I try to understand whether TV consumption affects government approval. Based on the literature I highlight several hypotheses: 
+
+1. Frequency of watching TV has different effect on the approval of  political actors (the level of power)
+
+2. People who watch state-owned TV channels are more likely to approve Russian officials policy
+
+3. People who use the Internet are more likely to disapprove Russian officials policy
+
+# Data and methods  
+```{r, echo=FALSE, warning = FALSE}
+library("modelsummary")
+library("dplyr")
+library("ggplot2")
+library("stargazer")
+library("apaTables")
+
+approval <- read.csv("presentation_data.csv")
+```
+
+For the project I use survey data. The survey was conducted by [VCIOM](https://bd.wciom.ru/baza_dannykh_roper_center/) (a Russian polling agency) from July $2018$ to October $2019$. The survey is representative on the country level conducted in $80$ Russian regions every day ($\approx 48000$ respondents each month). As the **dependent variable** I use approval of the President and the  Governor (head of a region, republic). As the main **independent variable** I use frequency of watching TV (where $1$ denotes not TV at all, and $6$ denotes watching TV every day more than $4$ hours per day). I would also test the hypothesis about the association if using the Internet and officials approval (the variable for the frequncy of using the internet is coded the same as the one for TV). I also use a set of **control variables**, they are socio-economic variables (gender, education, income). The summary statistics are shown in the table 1. Because I have time-varying data I am able to trace the changes in approval ratings, they are shown on the figure 1.
+
+Because I have a binary dependent variable, I am using logistic regression testing the model for the President and the Governor. Using the method is appropriate for binary outcomes, input variables that have any measurement level, and predicted values are the probability of a particular level(s) of target variable at the given values of input variables. 
+
+```{r, fig.pos = "h", out.extra = ''}
+datasummary(("President approval" = president_approval) +
+              ('Governor approval' = governor_approval) +
+#              ('Government approval' = government_approval) +
+#              ('Mayor approval' = mayor_approval) +
+              ('TV watching frequncy' = tv_rec) +
+              ('Internet frequncy' = internet_rec) ~
+              Mean + SD + Min + Max,
+            data = approval,
+            output = 'markdown',
+            title = "Summary statistics")
+
+```
+
+
+```{r, figures-side, fig.show="hold", out.width="50%", warning = FALSE, fig.pos = "h", out.extra = ''}
+par(mar = c(4, 4, .1, .1))
+
+approval %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(as.integer(president_approval))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "darkred") +
+  theme_minimal() +
+  labs(title = "Average approval of the President", x = "months", y = "Share of supporters") +
+  ylim(0.30, 1)
+
+approval %>% 
+  group_by(as.factor(wave)) %>%
+  mutate(mean_pres = mean(na.omit(as.integer(governor_approval)))) %>%
+  ggplot(aes(x = wave)) +
+  geom_line(aes(y =  mean_pres), color = "steelblue") +
+  theme_minimal() +
+  labs(title = "Average approval of the Governor", x = "months", y = "Share of supporters")+
+  ylim(0.30, 1)
+```
+
+# Results
+```{r, echo=FALSE, results = FALSE}
+#Government approval
+table(approval$government_approval)
+
+approval$government_approval[approval$government_approval == 1] <- 0
+approval$government_approval[approval$government_approval == 2] <- 1
+approval$government_approval[approval$government_approval == 99] <- NA
+
+table(approval$government_approval)
+
+
+
+#Government approval
+table(approval$mayor_approval)
+
+approval$mayor_approval[approval$mayor_approval == 1] <- 0
+approval$mayor_approval[approval$mayor_approval == 2] <- 1
+approval$mayor_approval[approval$mayor_approval == 99] <- NA
+
+table(approval$mayor_approval)
+
+######TV frequency (recoding)
+table(approval$tv)
+approval$tv_rec <- 99
+approval$tv_rec[approval$tv == 6] <- 1 #don't watch (Не смотрю)
+approval$tv_rec[approval$tv == 5] <- 2 #episodically, no less than once per half a year (Смотрю эпизодически, но не менее 1 раза в полгода)
+approval$tv_rec[approval$tv == 4] <- 3 #several times per month (Смотрю несколько раз в месяц)
+approval$tv_rec[approval$tv == 3] <- 4 #several times per week (Смотрю несколько раз в неделю)
+approval$tv_rec[approval$tv == 2] <- 5 #every day less than 4hrs per day (Смотрю ежедневно, менее 4 часов в день)
+approval$tv_rec[approval$tv == 1] <- 6 #more than 4hrs per day (Смотрю более 4 часов ежедневно)
+
+table(approval$tv_rec)
+
+#### Internet frequency (recoding)
+table(approval$internet)
+approval$internet_rec <- 99
+approval$internet_rec[approval$internet == 96] <- 1 #don't use (Не пользуюсь)
+approval$internet_rec[approval$internet == 5] <- 2 #episodically, no less than once per half a year (Смотрю эпизодически, но не менее 1 раза в полгода)
+approval$internet_rec[approval$internet == 4] <- 3 #several times per month (Смотрю несколько раз в месяц)
+approval$internet_rec[approval$internet == 3] <- 4 #several times per week (Смотрю несколько раз в неделю)
+approval$internet_rec[approval$internet == 2] <- 5 #every day less than 4hrs per day (Смотрю ежедневно, менее 4 часов в день)
+approval$internet_rec[approval$internet == 1] <- 6 #more than 4hrs per day (Смотрю более 4 часов ежедневно)
+
+
+#President 
+suppressWarnings(model1<- glm(president_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+               income + protest +
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial"))
+summary(model1)
+
+
+#Governor
+
+suppressWarnings(model2<- glm(governor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+               income + protest +
+               as.factor(region) + as.factor(wave), data = approval, family = "binomial"))
+summary(model2)
+
+```
+
+```{r results='asis', warning = FALSE, fig.pos = "h", out.extra = ''}
+stargazer(model1, model2,
+          title = "Political actors approval assosiated with watching TV frequency",
+          covariate.labels = c("TV very rarely", "Several times per month",
+                               "Several times per week", "Every day less than 4hrs",
+                               "Every day more than 4hrs", "Age", "Income", "Protest"),
+          dep.var.labels = c("President approval", "Governor approval"),
+          omit = c("region", "wave", "education", "internet_rec", "age", "income", "protest"),
+          type = "latex",
+          font.size = "small",
+          header = FALSE)
+```
+
+```{r results='asis', warning = FALSE,fig.pos = "h!", out.extra = ''}
+stargazer(model1, model2, 
+          title = "Political actors approval assosiated with using the Internet",
+          covariate.labels = c("Very rarely", "Several times per month", "Several times per week",
+                               "Every day less than 4hrs", "Every day more than 4hrs", "Age"),
+          dep.var.labels = c("President approval", "Governor approval"),
+          omit = c("region", "wave", "education", "tv_rec", "age", "income", "protest"),
+          type = "latex",
+          font.size = "small",
+          header = FALSE)
+```
+# Discussion
+
+
+\newpage
+
+# References
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id="refs" custom-style="Bibliography"></div>
+\endgroup

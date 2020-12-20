@@ -1,0 +1,5 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h]
+\includegraphics[width=0.5\linewidth,]{Final_paper_files/figure-latex/figures-side-1} \includegraphics[width=0.5\linewidth,]{Final_paper_files/figure-latex/figures-side-2} \caption{ }\label{fig:figures-side}
+\end{figure*}
