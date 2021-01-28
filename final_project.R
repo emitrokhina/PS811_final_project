@@ -12,8 +12,12 @@ library("stargazer")
 library("modelsummary")
 library("sjlabelled")
 library("estimatr")
+library('plm')
 
 dataset <- read.csv("final_project_data.csv")
+
+names(dataset)
+
 
 #Recoding variables
 
@@ -65,7 +69,28 @@ dataset$internet_rec[dataset$internet == 3] <- 4 #several times per week (Смо
 dataset$internet_rec[dataset$internet == 2] <- 5 #every day less than 4hrs per day (Смотрю ежедневно, менее 4 часов в день)
 dataset$internet_rec[dataset$internet == 1] <- 6 #more than 4hrs per day (Смотрю более 4 часов ежедневно)
 
+table(dataset$internet_rec)
 
+#recoding voting
+table(dataset$vote_choice)
+
+dataset$vote_recoded <- NA
+
+dataset$vote_recoded[dataset$vote_choice == 5] <- 1 #United RUssia
+dataset$vote_recoded[dataset$vote_choice == 1] <- 2 #Parliament opposition
+dataset$vote_recoded[dataset$vote_choice == 2] <- 2
+dataset$vote_recoded[dataset$vote_choice == 3] <- 2
+dataset$vote_recoded[dataset$vote_choice == 4] <- 3 #all the others including non voters
+dataset$vote_recoded[dataset$vote_choice == 6] <- 3 
+dataset$vote_recoded[dataset$vote_choice == 7] <- 3 
+dataset$vote_recoded[dataset$vote_choice == 8] <- 3 
+dataset$vote_recoded[dataset$vote_choice == 98] <- 3 
+dataset$vote_recoded[dataset$vote_choice == 96] <- 3 
+dataset$vote_recoded[dataset$vote_choice == 97] <- 3 
+dataset$vote_recoded[dataset$vote_choice == 99] <- 3 
+
+
+table(dataset$vote_recoded)
 write.csv(dataset,"presentation_data.csv", row.names = FALSE)
 
 #Summary statistics
@@ -76,7 +101,8 @@ datasummary(('President approval' = president_approval) +
               ('Government approval' = government_approval) +
               ('Mayor approval' = mayor_approval) +
               ('TV watching frequncy' = tv_rec) +
-              ('Internet frequncy' = internet_rec) ~
+              ('Internet frequncy' = internet_rec)+
+              ('Voting' = vote_recoded) ~
               Mean + SD + Min + Max,
             data = dataset,
             output = 'markdown')
@@ -116,21 +142,46 @@ dataset %>%
 
 
 #Data analysis
+library("foreign")
+
+coplot(president_approval ~ wave|region, type = "l", data = dataset)
+
+library(car)
+scatterplot(president_approval ~ wave|region, boxplots = FALSE, smooth = TRUE, reg.line = FALSE, data = dataset)
+
+library(gplots)
+plotmeans(president_approval ~ region, main = "Heterogeineity across countries", data = dataset) 
+#use this plot for all indicators
+
+plotmeans(president_approval ~ wave, main = "Heterogeineity across years", data = dataset)
+
 
 #Logit regression
 
 
 #President 
-model1<- glm(president_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
-               income + protest +
-               as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
+model1<- glm(president_approval ~ factor(tv_rec) - 1 + age + as.factor(education) + as.factor(internet_rec) +
+               income + protest + as.factor(vote_recoded) +
+               factor(region) - 1 + factor(wave) - 1, data = dataset, family = "binomial")
 summary(model1)
 
+#FE model
+model_1a <- plm(president_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
+                  income + protest + as.factor(vote_recoded) + factor(wave) - 1, 
+                    data = dataset,
+                    index = c("region"), 
+                    model = "within")
+
+summary(model_1a)
+
+fixef(model_1a)
+
+pFtest(model1, model_1a)
 
 #Governor
 
 model2<- glm(governor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
-               income + protest +
+               income + protest + as.factor(vote_recoded) +
                as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
 summary(model2)
 
@@ -138,13 +189,13 @@ summary(model2)
 #Government
 
 model3<- glm(government_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
-               income + protest +
+               income + protest + as.factor(vote_recoded) +
                as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
 summary(model3)
 
 #Mayor
 model4<- glm(mayor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
-               income + protest +
+               income + protest + as.factor(vote_recoded) +
                as.factor(region) + as.factor(wave), data = dataset, family = "binomial")
 summary(model4)
 
