@@ -150,7 +150,8 @@ library(car)
 scatterplot(president_approval ~ wave|region, boxplots = FALSE, smooth = TRUE, reg.line = FALSE, data = dataset)
 
 library(gplots)
-plotmeans(president_approval ~ region, main = "Heterogeineity across countries", data = dataset) 
+plotmeans(president_approval ~ region, main = "Heterogeineity across regions", ylab = "Regions", xlab = "President approval",
+          data = dataset) 
 #use this plot for all indicators
 
 plotmeans(president_approval ~ wave, main = "Heterogeineity across years", data = dataset)
