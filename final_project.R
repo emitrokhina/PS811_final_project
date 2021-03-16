@@ -1,6 +1,6 @@
 #Final project 811
 #Evgeniya Mitrokhina
-#Dare: 23.11.2020
+#Date: 23.11.2020
 
 library(dplyr)
 library(ggplot2)

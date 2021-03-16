@@ -1,3 +1,4 @@
+
 library(survival)
 library(plyr)
 library(tidyr)
@@ -14,7 +15,6 @@ dataset$protest[dataset$protest == 99] <- NA
 
 
 #Summary statistics
-
 datasummary(('President approval' = president_approval) +
               ('Governor approval' = governor_approval) +
               ('Government approval' = government_approval) +
@@ -76,9 +76,18 @@ dataset %>%
 #Analysis
 
 
+
+
+fe_0 <- clogit(president_approval ~ as.factor(tv_rec), data = dataset)
+summary(fe_0)
++ as.factor(wave) + strata(region)
+
+
 fe_1 <- clogit(president_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
                  dohod + protest + as.factor(vote_recoded) + strata(region, wave), data = dataset)
 summary(fe_1)
+
+
 
 
 fe_2 <- clogit(governor_approval ~ as.factor(tv_rec) + age + as.factor(education) + as.factor(internet_rec) +
